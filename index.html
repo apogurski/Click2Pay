@@ -1,0 +1,85 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <script src="https://sandbox.src.mastercard.com/sdk/srcsdk.mastercard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endava Click2Pay by Mastercard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+	<h1>Mastercard Click to Pay Integration</h1>
+    <button id="clickToPayButton" onClick="callInit();">Pay with Mastercard Click to Pay</button>
+    <script type="text/javascript">
+	
+	let initPay = {
+  "srciTransactionId":"781eaff9-f72e-4365-a438-0e4c82c8ded4",
+  "srcInitiatorId":"cb7aea27-0430-47ea-b302-5b0184f01cf4",
+  "srciDpaId":"caa9c13b-428f-4162-9e76-a756cc87282c",
+
+  "dpaTransactionOptions":
+  {
+      "transactionAmount":
+      {
+          "transactionAmount":"100.00",
+          "transactionCurrencyCode":"USD"
+      },
+      "transactionType": "PURCHASE",
+      "dpaBillingPreference":"FULL",
+      "dpaShippingPreference":"FULL",
+      "customInputData":
+        {
+          "com.mastercard.dcfExperience":"WITHIN_CHECKOUT"
+        },
+      "consumerNationalIdentifierRequested":false,
+      "dpaAcceptedBillingCountries":
+        [
+        ],
+      "dpaAcceptedShippingCountries":
+        [
+        ],
+      "dpaLocale":"en_US",
+      "consumerEmailAddressRequested":true,
+      "consumerNameRequested":true,
+      "consumerPhoneNumberRequested":true,
+      "confirmPayment":false,
+      "payloadTypeIndicatorCheckout":"PAYMENT",
+      "payloadTypeIndicatorPayload":"PAYMENT",
+      "paymentOptions":
+        [
+          {
+              "dpaDynamicDataTtlMinutes":15,
+              "dpaPanRequested":false,
+              "dynamicDataType":"CARD_APPLICATION_CRYPTOGRAM_SHORT_FORM"
+          }
+       ]
+  }
+}
+
+// Define response handlers
+function promiseResolvedHandler (payload) {
+  console.log('succcess');
+}
+function promiseRejectedHandler (payload) {
+  console.log('error');
+}
+
+function callInit() {
+    const initPromise = window.SRCSDK_MASTERCARD.init(initPay) //  returns a promise initPromise
+  .then(promiseResolvedHandler) // No other SDK methods should be invoked until `init` resolves
+  .catch(promiseRejectedHandler)
+}
+
+		
+    </script>
+</body>
+</html>
+
+		
